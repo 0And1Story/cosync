@@ -1,0 +1,2 @@
+node .
+read -p "Pause"

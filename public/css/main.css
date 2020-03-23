@@ -1,0 +1,86 @@
+body {
+    min-height: 100vh;
+    background-color: #448AFF;
+}
+
+.mdui-container-fluid {
+    margin-top: 68px !important;
+}
+
+#container {
+    background-color: #fff;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+#container h1 {
+    margin-top: 18px;
+}
+
+.mdui-appbar {
+    background-color: #fff !important;
+}
+
+.mdui-appbar .mdui-toolbar {
+    color: #448AFF !important;
+    background-color: #fff !important;
+}
+
+.folder {
+    font-weight: bold;
+}
+
+.mdui-list-item-icon~.mdui-list-item-content {
+    margin-left: 10px;
+}
+
+.mdui-list-item-content~.mdui-list-item-icon {
+    transition: .3s;
+}
+
+.mdui-list-item-content~.mdui-list-item-icon:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.mdui-appbar .mdui-toolbar .mdui-btn-icon:first-child:hover {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+#dir-list .mdui-col {
+    transition: .3s;
+}
+
+#dir-list .mdui-col[file]:hover {
+    background-color: rgba(0, 0, 0, .08) !important;
+}
+
+#dir-list .mdui-col .mdui-grid-tile {
+    height: 135px !important;
+}
+
+#dir-list .mdui-col .mdui-grid-tile .mdui-list-item-icon {
+    font-size: 800% !important;
+}
+
+#dir-list .mdui-col .mdui-grid-tile .mdui-grid-tile-actions {
+    min-height: 20px;
+    height: 20px;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#dir-list .mdui-col .mdui-grid-tile .mdui-grid-tile-actions .mdui-grid-tile-text {
+    text-align: center;
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+#dir-list .mdui-col .mdui-grid-tile .mdui-list-item-icon {
+    font-size: 500% !important;
+}
+
+#dir-list .mdui-col .mdui-grid-tile {
+    height: 100px !important;
+}
+}

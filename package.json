@@ -1,0 +1,23 @@
+{
+  "name": "downloadserver1",
+  "version": "1.0.0",
+  "description": "A Simple Download Server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "0And1Story",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "gm": "^1.23.1",
+    "highlight.js": "^9.18.1",
+    "marked": "^0.8.0",
+    "mathjax": "^3.0.1",
+    "mdui": "^0.4.3",
+    "uuid": "^7.0.2"
+  }
+}

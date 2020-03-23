@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~<%= path %></title>
+    <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/mdui.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/js/mdui.min.js"></script>
+    <script src="/js/view-mode.js" async></script>
+</head>
+<body class="mdui-theme-primary-blue mdui-theme-accent-blue">
+    <div class="mdui-appbar mdui-appbar-fixed">
+        <div class="mdui-toolbar mdui-color-theme mdui-col-offset-md-3">
+            <a href=".." class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">arrow_back</i></a>
+            <a class="mdui-typo-headline">~<%= path %></a>
+            <div class="mdui-toolbar-spacer"></div>
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
+        </div>
+    </div>
+    <div class="mdui-container-fluid">
+        <div id="container" class="mdui-card mdui-col-md-6 mdui-col-offset-md-3 mdui-m-t-5">
+            <% if (view_mode == 'view_list') { %>
+            <div id="dir-list" class="mdui-list">
+                <li class="mdui-list-item mdui-ripple mdui-text-color-theme-accent">
+                    <a href=".." class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent">arrow_back</a>
+                    <a href=".." class="mdui-list-item-content">返回上一级目录</a>
+                    <a href="javascript:changeViewMode();" id="view-mode-btn" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent"><%= view_mode %></a>
+                </li>
+                <% for (let i = 0; i < files.length; i ++) { %>
+                <li class="mdui-list-item mdui-ripple mdui-text-color-<%= files[i].color %>">
+                    <a href="<%= path + files[i].dir %>" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-<%= files[i].icon_color %>"><%= files[i].icon %></a>
+                    <a href="<%= path + files[i].dir %>" class="mdui-list-item-content mdui-text-color-<%= files[i].file_color %>"><%= files[i].dir %></a>
+                    <% if (files[i].type != 'folder') { %>
+                    <a class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent" href="<%= path + files[i].dir %>" download="<%= files[i].dir %>">file_download</a>
+                    <% } %>
+                </li>
+                <% } %>
+            </div>
+            <% } else { %>
+            <div class="mdui-list">
+                <li class="mdui-list-item mdui-ripple mdui-text-color-theme-accent">
+                    <a href=".." class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent">arrow_back</a>
+                    <a href=".." class="mdui-list-item-content">返回上一级目录</a>
+                    <a href="javascript:changeViewMode();" id="view-mode-btn" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent"><%= view_mode %></a>
+                </li>
+            </div>
+            <div id="dir-list" class="mdui-row-xs-3 mdui-row-sm-5 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
+                <% for (let i = 0; i < files.length; i ++) { %>
+                <div class="mdui-col mdui-ripple"<%= files[i].color == 'deep-purple-accent' ? '' : ' file' %>>
+                    <div class="mdui-grid-tile">
+                        <a href="<%= path + files[i].dir %>">
+                            <% if (files[i].icon == 'image') { %>
+                            <img src="/api/small-image?path=<%= path + files[i].dir %>">
+                            <% } else { %>
+                            <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-<%= files[i].icon_color %>"><%= files[i].icon %></i>
+                            <% } %>
+                        </a>
+                        <a href="<%= path + files[i].dir %>" class="mdui-grid-tile-actions">
+                            <div class="mdui-grid-tile-text">
+                                <div class="mdui-grid-tile-title mdui-text-color-<%= files[i].file_color %>"><%= files[i].dir %></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
