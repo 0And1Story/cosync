@@ -98,7 +98,7 @@
 
 ## 联系开发者
 
-若要报告BUG或建议新功能，请在**Issues**中留言。
+若要报告BUG或建议新功能，请在[[Issues]](https://github.com/0And1Story/cosync/issues)中留言。
 
 ## 感谢
 
