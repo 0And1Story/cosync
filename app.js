@@ -231,5 +231,6 @@ app.get('/*', function(req, res) {
 });
 
 app.listen(8088, '0.0.0.0', function() {
+    utility.initServer();
     console.log('\033[40;33mServer running at http://localhost:8088/\033[0m');
 });

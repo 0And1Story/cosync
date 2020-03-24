@@ -1,4 +1,10 @@
 function Utility() {
+    this.initServer = function() {
+        const fs = require('fs');
+        if (!fs.existsSync('./data')) fs.mkdir('./data', function() { console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[42;37m'} Server ${'\033[40;33m'} mkdir '/data'${'\033'}[0m`); });
+        if (!fs.existsSync('./public/image/temp')) fs.mkdir('./public/image/temp', function() { console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[42;37m'} Server ${'\033[40;33m'} mkdir '/public/image/temp'${'\033'}[0m`); });
+    };
+
     this.getClientIP = function(req) {
         return req.ip || req.headers['x-real-ip'] || req.headers['x-forward-for'] || req.connection.remoteAddress || req.socket.remoteAddress || '';
     };
