@@ -2,7 +2,7 @@ const constant = require('./const');
 
 function FileType() {
     this.getFileType = function(path) {
-        return path.split('.').slice(-1)[0];
+        return path.split('.').slice(-1)[0].toLowerCase();
     };
     
     this.getFileColor = function(path) {
