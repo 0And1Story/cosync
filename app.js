@@ -186,6 +186,15 @@ app.get('/api/small-image', function(req, res) {
     });
 });
 
+app.get('/api/file-list', function(req, res) {
+    let ip = utility.getClientIP(req);
+    console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} → Server ${'\033[45;37m'} API ${'\033[40;32m'} request ${'\033[40;35m'}'file list'${'\033'}[0m`);
+    let data = { list: [] };
+    utility.getFileList(data.list);
+    res.json(data);
+    console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} ${'\033[45;37m'} API ${'\033[40;32m'} send ${'\033[40;35m'}'file list'${'\033'}[0m`);
+});
+
 app.get('/*', function(req, res) {
     let ip = utility.getClientIP(req);
     let path = decodeURI(req.url);
