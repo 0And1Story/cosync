@@ -30,12 +30,12 @@ function Utility() {
         return (Array(length + 1).join('0') + value.toString()).slice(-length);
     };
 
-    this.getFileList = function(data, path = 'data') {
-        data.push({ path: path, file: path.split('/').slice(-1)[0] });
-        if (fs.statSync(path).isFile()) return;
-        let files = fs.readdirSync(path);
+    this.getFileList = function(data, path = '') {
+        data.push({ path: path, file: path.split('/').slice(-1)[0], isFile: fs.statSync('data' + path).isFile() });
+        if (fs.statSync('data' + path).isFile()) return;
+        let files = fs.readdirSync('data' + path);
         for (file of files) {
-            this.getFileList(data, path + '/' + file);
+            this.getFileList(data, `${path}/${file}`);
         }
     };
 }

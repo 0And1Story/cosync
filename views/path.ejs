@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="/js/mdui.min.js"></script>
     <script src="/js/view-mode.js" async></script>
+    <script src="/js/filetype.js" async></script>
+    <script src="/js/search.js" async></script>
 </head>
 <body class="mdui-theme-primary-blue mdui-theme-accent-blue">
     <div class="mdui-appbar mdui-appbar-fixed">
@@ -16,7 +18,7 @@
             <a href=".." class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">arrow_back</i></a>
             <a class="mdui-typo-headline">~<%= path %></a>
             <div class="mdui-toolbar-spacer"></div>
-            <a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>
+            <a href="javascript:initSearch();" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons" mdui-dialog="{target: '#search-dlg'}">search</i></a>
         </div>
     </div>
     <div class="mdui-container-fluid">
@@ -67,6 +69,15 @@
                 <% } %>
             </div>
             <% } %>
+        </div>
+    </div>
+    <div class="mdui-dialog" id="search-dlg">
+        <div class="mdui-dialog-title">
+            搜索 Search
+            <div class="mdui-textfield"><input class="mdui-textfield-input" id="search-input" type="text" placeholder="搜索" onkeyup="search()"></div>
+        </div>
+        <div class="mdui-dialog-content">
+            <div id="search-list" class="mdui-list"></div>
         </div>
     </div>
 </body>

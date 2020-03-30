@@ -3,6 +3,12 @@ body {
     background-color: #448AFF;
 }
 
+@media (min-width: 1024px) {
+.mdui-appbar .mdui-toolbar {
+    padding-right: 25%;
+}
+}
+
 .mdui-container-fluid {
     margin-top: 68px !important;
 }
@@ -73,6 +79,10 @@ body {
 
 #dir-list .mdui-col .mdui-grid-tile .mdui-grid-tile-actions .mdui-grid-tile-text {
     text-align: center;
+}
+
+#search-dlg {
+    height: 80%;
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
