@@ -85,6 +85,10 @@ body {
     height: 80%;
 }
 
+#search-list .mdui-list-item .mdui-list-item-avator {
+    transform: scale(1.5);
+}
+
 @media (min-width: 1024px) and (max-width: 1440px) {
 #dir-list .mdui-col .mdui-grid-tile .mdui-list-item-icon {
     font-size: 500% !important;
