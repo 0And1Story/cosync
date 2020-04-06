@@ -1,5 +1,4 @@
 body {
-    min-height: 100vh;
     background-color: #448AFF;
 }
 
@@ -85,8 +84,35 @@ body {
     height: 80%;
 }
 
+#search-dlg .input-box {
+    display: flex;
+}
+
+#search-dlg .input-box .mdui-textfield {
+    flex: auto;
+    margin-right: 2px;
+}
+
+#search-dlg .input-box .actions {
+    flex: none;
+    padding-top: 16px;
+    margin-left: 2px;
+}
+
+#search-dlg .input-box .actions .mdui-btn.mdui-btn-icon {
+    border-radius: 2px;
+}
+
 #search-list .mdui-list-item .mdui-list-item-avator {
     transform: scale(1.5);
+}
+
+#search-list .mdui-list-item-content mark {
+    padding: 2px 0;
+    background-color: #fff98e;
+    border-bottom: 1px solid #ffcd77;
+    font-weight: bold;
+    color: inherit;
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {

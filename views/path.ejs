@@ -18,7 +18,7 @@
             <a href=".." class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">arrow_back</i></a>
             <a class="mdui-typo-headline">~<%= path %></a>
             <div class="mdui-toolbar-spacer"></div>
-            <a href="javascript:initSearch();" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons" mdui-dialog="{target: '#search-dlg'}">search</i></a>
+            <a href="javascript:initSearch();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '搜索', delay: 500}" mdui-dialog="{target: '#search-dlg'}"><i class="mdui-icon material-icons">search</i></a>
         </div>
     </div>
     <div class="mdui-container-fluid">
@@ -28,14 +28,14 @@
                 <li class="mdui-list-item mdui-ripple mdui-text-color-theme-accent">
                     <a href=".." class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent">arrow_back</a>
                     <a href=".." class="mdui-list-item-content">返回上一级目录</a>
-                    <a href="javascript:changeViewMode();" id="view-mode-btn" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent"><%= view_mode %></a>
+                    <a href="javascript:changeViewMode();" id="view-mode-btn" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent" mdui-tooltip="{content: '网格视图', delay: 1000, position: 'top'}"><%= view_mode %></a>
                 </li>
                 <% for (let i = 0; i < files.length; i ++) { %>
                 <li class="mdui-list-item mdui-ripple mdui-text-color-<%= files[i].color %>">
                     <a href="<%= path + files[i].dir %>" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-<%= files[i].icon_color %>"><%= files[i].icon %></a>
                     <a href="<%= path + files[i].dir %>" class="mdui-list-item-content mdui-text-color-<%= files[i].file_color %>"><%= files[i].dir %></a>
                     <% if (files[i].type != 'folder') { %>
-                    <a class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent" href="<%= path + files[i].dir %>" download="<%= files[i].dir %>">file_download</a>
+                    <a class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent" href="<%= path + files[i].dir %>" download="<%= files[i].dir %>" mdui-tooltip="{content: '下载', delay: 1000, position: 'top'}">file_download</a>
                     <% } %>
                 </li>
                 <% } %>
@@ -45,7 +45,7 @@
                 <li class="mdui-list-item mdui-ripple mdui-text-color-theme-accent">
                     <a href=".." class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent">arrow_back</a>
                     <a href=".." class="mdui-list-item-content">返回上一级目录</a>
-                    <a href="javascript:changeViewMode();" id="view-mode-btn" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent"><%= view_mode %></a>
+                    <a href="javascript:changeViewMode();" id="view-mode-btn" class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-theme-accent" mdui-tooltip="{content: '列表视图', delay: 1000, position: 'top'}"><%= view_mode %></a>
                 </li>
             </div>
             <div id="dir-list" class="mdui-row-xs-3 mdui-row-sm-5 mdui-row-md-5 mdui-row-lg-6 mdui-row-xl-7 mdui-grid-list">
@@ -74,7 +74,12 @@
     <div class="mdui-dialog" id="search-dlg">
         <div class="mdui-dialog-title">
             搜索 Search
-            <div class="mdui-textfield"><input class="mdui-textfield-input" id="search-input" type="text" placeholder="搜索" onkeyup="search()"></div>
+            <div class="input-box">
+                <div class="mdui-textfield"><input class="mdui-textfield-input" id="search-input" type="text" placeholder="搜索" onkeyup="search()"></div>
+                <div class="actions">
+                    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '正则表达式', delay: 500, position: 'top'}"><i class="mdui-icon material-icons">regexp</i></a>
+                </div>
+            </div>
         </div>
         <div class="mdui-dialog-content">
             <div id="search-list" class="mdui-list"></div>
