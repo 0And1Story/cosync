@@ -15,7 +15,7 @@
     "express-session": "^1.17.0",
     "gm": "^1.23.1",
     "highlight.js": "^9.18.1",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "mathjax": "^3.0.1",
     "mdui": "^0.4.3",
     "uuid": "^7.0.2"
