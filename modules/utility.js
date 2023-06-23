@@ -2,7 +2,8 @@ const fs = require('fs');
 
 function Utility() {
     this.initServer = function() {
-        if (!fs.existsSync('./data')) fs.mkdir('./data', function() { console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[42;37m'} Server ${'\033[40;33m'} mkdir '/data'${'\033'}[0m`); });
+        this.path = process.argv[2] || './data';
+        if (!fs.existsSync(this.path)) fs.mkdir(this.path, function() { console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[42;37m'} Server ${'\033[40;33m'} mkdir ${this.path}${'\033'}[0m`); });
         if (!fs.existsSync('./public/image/temp')) fs.mkdir('./public/image/temp', function() { console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[42;37m'} Server ${'\033[40;33m'} mkdir '/public/image/temp'${'\033'}[0m`); });
     };
 
@@ -31,9 +32,9 @@ function Utility() {
     };
 
     this.getFileList = function(data, path = '') {
-        data.push({ path: path, file: path.split('/').slice(-1)[0], isFile: fs.statSync('data' + path).isFile() });
-        if (fs.statSync('data' + path).isFile()) return;
-        let files = fs.readdirSync('data' + path);
+        data.push({ path: path, file: path.split('/').slice(-1)[0], isFile: fs.statSync(this.path + path).isFile() });
+        if (fs.statSync(this.path + path).isFile()) return;
+        let files = fs.readdirSync(this.path + path);
         for (file of files) {
             this.getFileList(data, `${path}/${file}`);
         }

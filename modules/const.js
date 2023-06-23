@@ -650,3 +650,5 @@ module.exports.langs_icon = [
   "zephir",
   "zep"
 ];
+
+module.exports.path = process.argv[2] || './data';

@@ -42,20 +42,20 @@ app.get(/^.+@raw$/, function(req, res) {
     let ip = utility.getClientIP(req);
     let path = decodeURI(req.url).slice(0, -4);
     console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} → Server ${'\033[40;32m'} request ${'\033[40;35m'}'${path}${'\033[40;32m'}@raw${'\033[40;35m'}'${'\033'}[0m`);
-    if (!fs.existsSync('data' + path)) {
+    if (!fs.existsSync(constant.path + path)) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    if (!fs.statSync('data' + path).isFile()) {
+    if (!fs.statSync(constant.path + path).isFile()) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
     res.header('Content-Type', 'text/plain; charset=UTF-8');
-    fs.readFile('data' + path, function(err, data) {
+    fs.readFile(constant.path + path, function(err, data) {
         if (err) return;
         res.send(data);
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;35m'}'${path}${'\033[40;32m'}@raw${'\033[40;35m'}'${'\033'}[0m`);
@@ -66,19 +66,19 @@ app.get(/^.+@hl$/, function(req, res) {
     let ip = utility.getClientIP(req);
     let path = decodeURI(req.url).slice(0, -3);
     console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} → Server ${'\033[40;32m'} request ${'\033[40;35m'}'${path}${'\033[40;32m'}@hl${'\033[40;35m'}'${'\033'}[0m`);
-    if (!fs.existsSync('data' + path)) {
+    if (!fs.existsSync(constant.path + path)) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    if (!fs.statSync('data' + path).isFile()) {
+    if (!fs.statSync(constant.path + path).isFile()) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    fs.readFile('data' + path, function(err, data) {
+    fs.readFile(constant.path + path, function(err, data) {
         if (err) return;
         let code = data.toString(), lang = filetype.getFileType(path);
         res.send(`<link rel="stylesheet" href="/styles/atom-one-light.css"><pre><code class="language-${lang}">${highlightjs.highlightAuto(code, [lang]).value}</code></pre>`);
@@ -90,17 +90,17 @@ app.get(/^.+\.md$/, function(req, res, next) {
     let ip = utility.getClientIP(req);
     let path = decodeURI(req.url);
     console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} → Server ${'\033[40;32m'} request ${'\033[40;35m'}'${path}'${'\033'}[0m`);
-    if (!fs.existsSync('data' + path)) {
+    if (!fs.existsSync(constant.path + path)) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    if (!fs.statSync('data' + path).isFile()) {
+    if (!fs.statSync(constant.path + path).isFile()) {
         next();
         return;
     }
-    fs.readFile('data' + path, function(err, data) {
+    fs.readFile(constant.path + path, function(err, data) {
         if (err) return;
         res.send('<link rel="stylesheet" href="/styles/atom-one-light.css"><script src="/tex-mml-chtml.js" async></script>' + marked(data.toString().replace(/(?<!\\)\$(.*?[^\\])\$/g, '\\\\($1\\\\)').replace(/\\[\(\)]\$/g, '$$$$')));
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;35m'}'${path}'${'\033'}[0m`);
@@ -111,19 +111,19 @@ app.get(RegExp(`^.+\\.(${constant.langs.join('|')})$`), function(req, res) {
     let ip = utility.getClientIP(req);
     let path = decodeURI(req.url);
     console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} → Server ${'\033[40;32m'} request ${'\033[40;35m'}'${path}${'\033[40;32m'}@hl${'\033[40;35m'}'${'\033'}[0m`);
-    if (!fs.existsSync('data' + path)) {
+    if (!fs.existsSync(constant.path + path)) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    if (!fs.statSync('data' + path).isFile()) {
+    if (!fs.statSync(constant.path + path).isFile()) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    fs.readFile('data' + path, function(err, data) {
+    fs.readFile(constant.path + path, function(err, data) {
         if (err) return;
         let code = data.toString(), lang = filetype.getFileType(path);
         res.send(`<link rel="stylesheet" href="/styles/atom-one-light.css"><pre><code class="language-${lang}">${highlightjs.highlightAuto(code, [lang]).value}</code></pre>`);
@@ -131,7 +131,7 @@ app.get(RegExp(`^.+\\.(${constant.langs.join('|')})$`), function(req, res) {
     });
 });
 
-app.use(express.static('./data'));
+app.use(express.static(constant.path));
 
 app.get('/api/change-view-mode', function(req, res) {
     let ip = utility.getClientIP(req);
@@ -158,14 +158,14 @@ app.get('/api/small-image', function(req, res) {
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
-    if (!fs.existsSync('data' + path)) {
+    if (!fs.existsSync(constant.path + path)) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]${'\033'}[0m`);
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
     let uid = uuid.v1();
-    gm('./data' + path).resize(200).setFormat('JPEG').quality(70).strip().autoOrient().write(`./public/image/temp/${uid}.jpg`, function(err) {
+    gm(constant.path + path).resize(200).setFormat('JPEG').quality(70).strip().autoOrient().write(`./public/image/temp/${uid}.jpg`, function(err) {
         if (err) {
             console.log(err);
             res.status(406).send('<center><h1>406 Not Acceptable</h1><center><hr>');
@@ -199,20 +199,20 @@ app.get('/*', function(req, res) {
     let ip = utility.getClientIP(req);
     let path = decodeURI(req.url);
     console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[44;37m'} ${ip} → Server ${'\033[40;32m'} request ${'\033[40;35m'}'${path}'${'\033'}[0m`);
-    if (!fs.existsSync('data' + path)) {
+    if (!fs.existsSync(constant.path + path)) {
         res.status(404).send('<center><h1>404 Not Found</h1><center><hr>');
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} Server → ${ip} ${'\033[40;32m'} send ${'\033[40;31m'}[404 Not Found]`)
         console.log(`${'\033[46;37m'} ${utility.getLocaleDate()} ${'\033[41;37m'} ${ip} ${'\033[40;31m'} request failed${'\033'}[0m`);
         return;
     }
     if (!req.session.view_mode) req.session.view_mode = 'view_list';
-    fs.readdir('data' + path, function(err, dir) {
+    fs.readdir(constant.path + path, function(err, dir) {
         if (err) return;
         let files = Array(dir.length);
         for (let i = 0; i < dir.length; i ++) {
             files[i] = {};
             files[i].dir = dir[i];
-            let stat = fs.statSync('data' + path + dir[i]);
+            let stat = fs.statSync(constant.path + path + dir[i]);
             if (stat.isFile()) {
                 files[i].file_color = filetype.getFileColor(dir[i]);
                 files[i].icon_color = filetype.getIconColor(dir[i]);
@@ -242,4 +242,5 @@ app.get('/*', function(req, res) {
 app.listen(8088, '0.0.0.0', function() {
     utility.initServer();
     console.log('\033[40;33mServer running at http://localhost:8088/\033[0m');
+    console.log('\033[40;33mCurrent Path: '+ constant.path + '\033[0m');
 });
